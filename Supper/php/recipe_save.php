@@ -4,17 +4,17 @@ error_reporting(E_ALL);
 
 require_once('db.php');
 
-// Получаем основные данные
+
 $recipeName = $_POST['title'] ?? '';
 $recipeDesc = $_POST['description'] ?? '';
 $recipeCuisine = $_POST['cuisine'] ?? '';
 
-// Сохраняем рецепт
+
 $stmt = $pdo->prepare("INSERT INTO recipes (title, description, cuisine) VALUES (?, ?, ?)");
 $stmt->execute([$recipeName, $recipeDesc, $recipeCuisine]);
 $recipeId = $pdo->lastInsertId();
 
-// Обрабатываем изображение обложки
+
 if (isset($_FILES['coverImage']) && $_FILES['coverImage']['error'] === UPLOAD_ERR_OK) {
     $uploadDir = 'uploads/';
     if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
@@ -24,13 +24,13 @@ if (isset($_FILES['coverImage']) && $_FILES['coverImage']['error'] === UPLOAD_ER
     $targetPathInDB = 'php/uploads/' . uniqid() . '-' . $name;
 
     if (move_uploaded_file($tmp_name, $uploadDir . basename($targetPathInDB))) {
-        // Обновляем рецепт с новым путём к обложке
+
         $stmt = $pdo->prepare("UPDATE recipes SET image = ? WHERE id = ?");
         $stmt->execute([$targetPathInDB, $recipeId]);
     }
 }
 
-// Обрабатываем теги
+
 if (!empty($_POST['tags'])) {
     $tags = json_decode($_POST['tags'], true);
 
@@ -41,7 +41,7 @@ if (!empty($_POST['tags'])) {
     }
 }
 
-// Обрабатываем ингредиенты
+
 if (!empty($_POST['ingredients'])) {
     $ingredients = json_decode($_POST['ingredients'], true);
 
@@ -75,12 +75,10 @@ foreach ($stepDescriptions as $index => $description) {
         }
     }
 
-    // Сохраняем шаг
     $stmt = $pdo->prepare("INSERT INTO steps (recipe_id, step_number, description, image) VALUES (?, ?, ?, ?)");
     $stmt->execute([$recipeId, $stepNumber, $description, $imagePath]);
 }
 
-// Формируем ответ
 header('Content-Type: application/json');
 echo json_encode([
     'status' => 'success',

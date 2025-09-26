@@ -9,20 +9,20 @@ try {
     $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($recipes as &$recipe) {
-        // Получаем ингредиенты
+
         $stmt = $pdo->prepare("SELECT name, amount, unit FROM recipe_ingredients WHERE recipe_id = ?");
         $stmt->execute([$recipe['id']]);
         $recipe['products'] = $stmt->fetchAll(PDO::FETCH_FUNC, function ($name, $amount, $unit) {
             return "$name — $amount $unit";
         });
 
-        // Получаем шаги
+
         $stmt = $pdo->prepare("SELECT id, title, description, cuisine AS subtitle, image, tags FROM recipes WHERE id = ?");
         $stmt->execute([$recipe['id']]);
         $steps = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
         $recipe['steps'] = $steps;
 
-        // Преобразуем строку тегов в массив
+
         $recipe['tags'] = $recipe['tags'] ? explode(',', $recipe['tags']) : [];
     }
 

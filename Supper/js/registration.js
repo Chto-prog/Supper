@@ -1,88 +1,88 @@
-const userRegistrationForm = document.getElementById('registrationForm');
-const userLoginForm = document.getElementById('loginForm');
-const userInfoContainer = document.getElementById('userContainer');
-const modalWindow = document.getElementById('myModal');
-const errorMessageRegModal = document.getElementById('errorMessageReg');
-const errorMessageLogModal = document.getElementById('errorMessageLog');
+const userRegistrationForm = document.getElementById("registrationForm");
+const userLoginForm = document.getElementById("loginForm");
+const userInfoContainer = document.getElementById("userContainer");
+const modalWindow = document.getElementById("myModal");
+const errorMessageRegModal = document.getElementById("errorMessageReg");
+const errorMessageLogModal = document.getElementById("errorMessageLog");
 
 updateLoginButton();
 checkUserSession();
 
-document.getElementById('btnSing-in').addEventListener('click', function () {
-    modalWindow.style.display = 'block';
+document.getElementById("btnSing-in").addEventListener("click", function () {
+	modalWindow.style.display = "block";
 });
 
-
-document.querySelectorAll('#closeForm').forEach(function (element) {
-    element.addEventListener('click', closeModal)
+document.querySelectorAll("#closeForm").forEach(function (element) {
+	element.addEventListener("click", closeModal);
 });
 
 function clearErrors() {
-    errorMessageRegModal.textContent = "";
-    errorMessageLogModal.textContent = "";
+	errorMessageRegModal.textContent = "";
+	errorMessageLogModal.textContent = "";
 }
 
 function closeModal() {
-    modalWindow.style.display = 'none';
-    resetForms()
+	modalWindow.style.display = "none";
+	resetForms();
 }
 
-document.getElementById('modalLinkLog').addEventListener('click', switchToReg);
+document.getElementById("modalLinkLog").addEventListener("click", switchToReg);
 
-document.getElementById('modalLinkReg').addEventListener('click', switchToLogin);
+document
+	.getElementById("modalLinkReg")
+	.addEventListener("click", switchToLogin);
 
 function switchToReg() {
-    userRegistrationForm.style.display = 'block';
-    userLoginForm.style.display = 'none';
-    resetForms()
+	userRegistrationForm.style.display = "block";
+	userLoginForm.style.display = "none";
+	resetForms();
 }
 
 function switchToLogin() {
-    userRegistrationForm.style.display = 'none';
-    userLoginForm.style.display = 'block';
-    resetForms()
-};
+	userRegistrationForm.style.display = "none";
+	userLoginForm.style.display = "block";
+	resetForms();
+}
 
 function resetForms() {
-    let inputs = document.querySelectorAll('.modal input');
-    inputs.forEach(function (input) {
-        input.value = '';
-    });
-    clearErrors()
-};
+	let inputs = document.querySelectorAll(".modal input");
+	inputs.forEach(function (input) {
+		input.value = "";
+	});
+	clearErrors();
+}
 
-userRegistrationForm.addEventListener('submit', validateReg);
+userRegistrationForm.addEventListener("submit", validateReg);
 
 function validateReg(event) {
-    event.preventDefault();
+	event.preventDefault();
 
-    const email = document.getElementById('emailReg').value;
-    const password = document.getElementById('passwordReg').value;
-    const passwordConfirm = document.getElementById('passwordConfirmReg').value;
+	const email = document.getElementById("emailReg").value;
+	const password = document.getElementById("passwordReg").value;
+	const passwordConfirm = document.getElementById("passwordConfirmReg").value;
 
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/i;
+	const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/i;
 
-    let isValid = true;
-    errorMessageRegModal.textContent = "";
+	let isValid = true;
+	errorMessageRegModal.textContent = "";
 
-    if (!emailPattern.test(email)) {
-        errorMessageRegModal.textContent = 'Введите корректную почту';
-        isValid = false;
-    }
+	if (!emailPattern.test(email)) {
+		errorMessageRegModal.textContent = "Введите корректную почту";
+		isValid = false;
+	}
 
-    if (!(password === passwordConfirm)) {
-        errorMessageRegModal.textContent = 'Пароли не совпадают';
-        isValid = false;
-    }
+	if (!(password === passwordConfirm)) {
+		errorMessageRegModal.textContent = "Пароли не совпадают";
+		isValid = false;
+	}
 
-    if (isValid) {
-        dataFetch(event);
-
-    }
-};
+	if (isValid) {
+		dataFetch(event);
+	}
+}
 
 function renderUserInfo(text) {
-    userInfoContainer.innerHTML = `
+	userInfoContainer.innerHTML = `
         <div class="login-user">
             <p>${text}</p>
             <button id="btnLog-out" class="btn-sing">
@@ -92,80 +92,82 @@ function renderUserInfo(text) {
     `;
 }
 
-userLoginForm.addEventListener('submit', function (event) {
-    event.preventDefault();
+userLoginForm.addEventListener("submit", function (event) {
+	event.preventDefault();
 
-    errorMessageLogModal.textContent = "";
+	errorMessageLogModal.textContent = "";
 
-    const formData = new FormData(this);
+	const formData = new FormData(this);
 
-    fetch('php/login.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data)
-            if (data === 'success') {
-                resetForms();
-                closeModal();
+	fetch("php/login.php", {
+		method: "POST",
+		body: formData,
+	})
+		.then((response) => response.text())
+		.then((data) => {
+			console.log(data);
+			if (data === "success") {
+				resetForms();
+				closeModal();
 
-                checkUserSession();
-            } else if (data === "captcha_required") {
-                document.getElementById('captchaBox').style.display = "block";
-                errorField.textContent = "Подтвердите, что вы не робот";
-            } else {
-                errorMessageLogModal.textContent = data;
-            }
-        })
+				checkUserSession();
+			} else if (data === "captcha_required") {
+				document.getElementById("captchaBox").style.display = "block";
+				errorField.textContent = "Подтвердите, что вы не робот";
+			} else {
+				errorMessageLogModal.textContent = data;
+			}
+		});
 });
 
 function dataFetch(event) {
-    const form = event.target;
-    const formData = new FormData(form);
+	const form = event.target;
+	const formData = new FormData(form);
 
-    fetch('php/register.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-            if (data === "success") {
-                switchToLogin();
-                resetForms();
-            } else {
-                errorMessageRegModal.textContent = data;
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            errorMessageRegModal.textContent = "Произошла ошибка при регистрации";
-        });
+	fetch("php/register.php", {
+		method: "POST",
+		body: formData,
+	})
+		.then((response) => response.text())
+		.then((data) => {
+			console.log(data);
+			if (data === "success") {
+				switchToLogin();
+				resetForms();
+			} else {
+				errorMessageRegModal.textContent = data;
+			}
+		})
+		.catch((error) => {
+			console.error(error);
+			errorMessageRegModal.textContent =
+				"Произошла ошибка при регистрации";
+		});
 }
 
-document.addEventListener('click', function (event) {
-    if (event.target && event.target.id === 'btnLog-out') {
-        fetch('php/logout.php')
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-                resetForms();
-                updateLoginButton();
-                checkUserSession();
-            });
-                        
-    }
+document.addEventListener("click", function (event) {
+	if (event.target && event.target.id === "btnLog-out") {
+		fetch("php/logout.php")
+			.then((response) => response.text())
+			.then((data) => {
+				console.log(data);
+				resetForms();
+				updateLoginButton();
+				checkUserSession();
+			});
+	}
 });
 
 function updateLoginButton() {
-    userInfoContainer.innerHTML = `
+	userInfoContainer.innerHTML = `
         <button id="btnSing-in" class="btn-sing">Войти</button>
     `;
 
-    document.getElementById('btnSing-in').addEventListener('click', function () {
-        modalWindow.style.display = 'block';
-    });
+	document
+		.getElementById("btnSing-in")
+		.addEventListener("click", function () {
+			modalWindow.style.display = "block";
+		});
 }
 
 // function checkUserSession() {
@@ -183,55 +185,51 @@ function updateLoginButton() {
 // }
 
 function checkUserSession() {
-    fetch('php/check_session.php')
-        .then(response => response.json())
-        .then(data => {
-            const sendButton = document.getElementById('sendRecipe');
+	fetch("php/check_session.php")
+		.then((response) => response.json())
+		.then((data) => {
+			const sendButton = document.getElementById("sendRecipe");
 
-            if (data.status === 'authenticated') {
-                // Пользователь авторизован → кнопка активна
-                sendButton.disabled = false;
-                sendButton.style.opacity = 1;
-                renderUserInfo(data.user.login);
-                renderRecipeButton;
-            } else {
-                // Пользователь НЕ авторизован → блокируем/скрываем кнопку
-                sendButton.disabled = true;
-                sendButton.style.opacity = 0.5;
-            }
+			if (data.status === "authenticated") {
+				sendButton.disabled = false;
+				sendButton.style.opacity = 1;
+				renderUserInfo(data.user.login);
+				renderRecipeButton;
+			} else {
+				sendButton.disabled = true;
+				sendButton.style.opacity = 0.5;
+			}
 
-            return data;
-        })
-        .catch(error => {
-            console.error('Ошибка при проверке сессии:', error);
-            return { status: 'guest' };
-        });
+			return data;
+		})
+		.catch((error) => {
+			console.error("Ошибка при проверке сессии:", error);
+			return { status: "guest" };
+		});
 }
 
+document.getElementById("sendRecipe").addEventListener("click", function () {
+	fetch("php/check_session.php")
+		.then((response) => response.json())
+		.then((data) => {
+			if (data.status === "authenticated") {
+				const addForm = document.querySelector(
+					".main-inner .recipes#recipe-list2"
+				);
+				const container = document.getElementById("recipe-list");
 
-document.getElementById('sendRecipe').addEventListener('click', function () {
-    fetch('php/check_session.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'authenticated') {
-                // Пользователь авторизован → показываем форму
-                const addForm = document.querySelector('.main-inner .recipes#recipe-list2');
-                const container = document.getElementById("recipe-list");
-
-                if (addForm) {
-                    container.innerHTML = '';
-                    addForm.style.display = 'block';
-                }
-            } else {
-                // Пользователь НЕ авторизован → показываем сообщение или ничего не делаем
-                alert('Вы должны войти, чтобы добавлять рецепты');
-                // Или просто игнорируем действие
-            }
-        })
-        .catch(err => {
-            console.error('Ошибка проверки сессии:', err);
-            alert('Произошла ошибка. Попробуйте позже.');
-        });
+				if (addForm) {
+					container.innerHTML = "";
+					addForm.style.display = "block";
+				}
+			} else {
+				alert("Вы должны войти, чтобы добавлять рецепты");
+			}
+		})
+		.catch((err) => {
+			console.error("Ошибка проверки сессии:", err);
+			alert("Произошла ошибка. Попробуйте позже.");
+		});
 });
 
 checkUserSession();
