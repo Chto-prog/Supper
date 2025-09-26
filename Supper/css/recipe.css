@@ -1,0 +1,68 @@
+.recipesShow {
+    padding: 0;
+}
+
+.recipesShow p {
+    width: 564px;
+}
+
+.recipe-name {
+    font-size: 40px;
+    padding-bottom: 5px;
+}
+
+.pbborder {
+    margin-bottom: 10px;
+}
+
+.recipe-subtitle {
+    font-size: 20px;
+    opacity: 0.6;
+    padding-bottom: 20px;
+}
+
+.recipe-descc {
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.add-container-inner {
+    padding-left: 10px;
+
+}
+
+.add-container-inner p {
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.recipe-img {
+    min-width: 564px;
+    border-radius: 10px;
+}
+
+.step-img {
+    width: 564px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+.step-item {
+    margin-bottom: 20px;
+}
+
+.step-number {
+    
+    font-size: 20px;
+    padding-top: 9px;
+    padding-left: 16px;
+    
+}
+
+.steps-num {
+    background-color: #ffdd5a;
+    margin-bottom: 20px;
+    width: 90px;
+    height: 40px;
+    border-radius: 10px;
+}

@@ -1,0 +1,257 @@
+.recipesadd {
+    max-width: 564px;
+}
+
+
+.recipe-input {
+    border: none;
+    background-color: rgba(235, 234, 234, 0.568);
+    box-shadow: border-box 4px;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.recipe-textArea {
+    border: none;
+    background-color: rgba(235, 234, 234, 0.568);
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 6px;
+    font-size: 14px;
+    resize: none;
+    overflow: hidden;
+}
+
+
+
+.add-container {
+    width: 564px;
+    border-radius: 5px;
+    border: 1px solid var(--text-color);
+    margin-bottom: 40px;
+}
+
+
+.mainImage {
+    width: 564px;
+
+    padding: 0;
+    padding-bottom: 20px;
+}
+
+.mainImage p {
+    font-size: 40px;
+    padding-bottom: 20px;
+}
+
+
+.btn-recipe {
+    border: none;
+    background-color: #ffdd5a;
+    border-radius: 25px;
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+.plus-icon-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    margin-top: -10px;
+}
+
+.plus-icon-btn__steps {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    margin-top: -5px;
+}
+
+.addFile-container {
+    display: flex;
+    gap: 10px;
+}
+
+.add-container__item {
+    padding: 10px 30px;
+}
+
+
+
+.ingredients {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.ing-inner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingridients-list {
+    padding-bottom: 20px;
+}
+
+.add-container__item p {
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+.ingredient-item p {
+    font-size: 20px;
+}
+
+.ingredient-item img {
+    width: 30px;
+    margin-top: -2px;
+}
+
+.ingredient-item-inner {
+    display: flex;
+    gap: 10px;
+}
+
+
+.ingredient-item-inner {
+    padding-left: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.heading-con {
+    padding-bottom: 20px;
+}
+
+.add-heading {
+    padding-bottom: 10px;
+    font-size: 30px;
+}
+
+.ingredients-container {
+    padding-bottom: 20px;
+}
+
+.recipeadd-bnts {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.save {
+    background-color: #ffdd5a;
+    border: none;
+    color: black;
+    margin: 0 auto;
+    width: 100%;
+    height: 50px;
+}
+
+.save-button-container {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.line {
+    width: 100%;
+    margin-bottom: 40px;
+    opacity: 0.2;
+}
+
+/* Убираем стандартные стрелочки браузера */
+.custom-number-input input::-webkit-outer-spin-button,
+.custom-number-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/* Для Firefox */
+.custom-number-input input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Обёртка вокруг инпута */
+.custom-number-input {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -17px;
+}
+
+/* Кнопки + и - */
+.spin-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    width: 24px;
+    height: 26px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.spin-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.addRecipe {
+    display: none;
+}
+
+.custom-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tag-btn {
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tag-btn.active {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+.recipe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    padding: 4px 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #555;
+}
+
+.ingredient-unit {
+    font-size: 20px;
+}
